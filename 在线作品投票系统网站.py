@@ -12,19 +12,16 @@ footer {visibility:hidden;}
 '''
 st.markdown(sysmenu, unsafe_allow_html=True)
 
-# Define image directory
-image_dir = './图片'
+# 检查并创建投票记录文件，并清空其内容
+vote_record_file = 'toupiao.txt'
+if os.path.exists(vote_record_file):
+    open(vote_record_file, 'w').close()
 
-# Ensure the image directory exists and is empty
+# 检查并创建图片文件夹，并清空其中的文件
+image_dir = './图片'
 if os.path.exists(image_dir):
     shutil.rmtree(image_dir)
 os.makedirs(image_dir)
-
-# 检查并创建投票记录文件
-vote_record_file = 'toupiao.txt'
-if not os.path.exists(vote_record_file):
-    with open(vote_record_file, 'w'):
-        pass
 
 with st.sidebar.expander('参评作品上传'):
     contain = st.container()
@@ -39,7 +36,7 @@ with st.sidebar.expander('参评作品上传'):
                 contain.warning('上传文件类型错误！')
 
 st.title('在线作品投票系统网站')
-st.info('说明：大家请选择自己喜欢的图片进行投票！')
+st.info('请大家选择自己喜欢的作品投票，每人最多投8张票！')
 with st.form('票选'):
     col1, col2 = st.columns(2)
     name = col1.text_input('投票人：')
